@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arturovb.pdfmanagerconcept.control.MergerUXController">
+    <children>
+        <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBackClicked" text="&lt;-" />
+        <ScrollPane layoutX="14.0" layoutY="39.0" prefHeight="497.0" prefWidth="654.0">
+            <content>
+                <VBox fx:id="vboxPDFPages" onDragDropped="#handleDrop" onDragOver="#handleOnDragOver" prefHeight="486.0" prefWidth="618.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</Pane>
