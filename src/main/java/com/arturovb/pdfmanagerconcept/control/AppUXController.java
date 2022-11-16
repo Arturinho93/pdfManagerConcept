@@ -28,7 +28,6 @@ public class AppUXController {
 
     @FXML
     void btnSplitClicked(ActionEvent event) {
-        btnSplit.setText("Cliccato");
     }
 
 }

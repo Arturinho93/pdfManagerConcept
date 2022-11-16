@@ -5,13 +5,29 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+enum Mod {
+    CURRENTDIR,
+    CONS,
+    DESKTOP
+}
 public class Logger {
 
+    enum Mod {
+        CURRENTDIR,
+        CONS,
+        DESKTOP
+    }
+        //TODO! agg modalità
+
+    // Mod modalita
     public static void log(Exception ex) {
 
         //forse il percorso è meglio sostituirlo con questo?
         //        String path = Test.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         //        String decodedPath = URLDecoder.decode(path, "UTF-8");
+
+       // switch (Mod)
+
 
         File logga = new File(System.getProperty("user.dir") + "\\TempPDFApp\\log.txt");
         FileWriter fWriter = null;

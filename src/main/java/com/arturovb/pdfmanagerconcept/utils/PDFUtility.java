@@ -2,6 +2,7 @@ package com.arturovb.pdfmanagerconcept.utils;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -19,6 +20,9 @@ public class PDFUtility {
     public static String destinationPath = null;
     public static PDFMergerUtility pmu = new PDFMergerUtility();
 
+
+
+
     /**
      *
      * Sets the url of the destination merged file.
@@ -26,6 +30,25 @@ public class PDFUtility {
      *
      */
     public static boolean setMergeDestination() {
+        try {
+            if (destinationPath != null)
+                pmu.setDestinationFileName(destinationPath);
+            else {
+                String destinazione = System.getProperty("user.dir") + "\\uniti.pdf";
+                pmu.setDestinationFileName(destinazione);
+            }
+
+        } catch (Exception ex) {
+            Logger.log(ex);
+            return false;
+        }
+
+        return true;
+
+    }
+
+
+    public static boolean setMergeDestination(String destinationPath) {
         try {
             if (destinationPath != null)
                 pmu.setDestinationFileName(destinationPath);
@@ -71,7 +94,6 @@ public class PDFUtility {
     }
 
 
-
     /**
      *
      * Merges many PDF files into a single one.
@@ -92,26 +114,28 @@ public class PDFUtility {
 
         System.gc();    //Force gc
         return true;
-
     }
 
 
-    public static ArrayList<Image> convertToImage(File source) throws IOException {
+
+    @Deprecated
+    public static ArrayList<WritableImage> convertToImage(File source) throws IOException {
 
         if(!source.getName().toLowerCase().endsWith("pdf"))
             return null;
 
         PDDocument document = PDDocument.load(source);
         PDFRenderer pdfRenderer = new PDFRenderer(document);
-        ArrayList<Image> converted = new ArrayList<>();
+        ArrayList<WritableImage> converted = new ArrayList<>();
         for (int page = 0; page < document.getNumberOfPages(); ++page) {
             BufferedImage bim = pdfRenderer.renderImageWithDPI(
-                    page, 300, ImageType.RGB);
+                    page, 30, ImageType.RGB);
             //ImageIOUtil.writeImage(bim, String.format(System.getProperty("user.dir")+ "\\temp\\" + "pdf-%d.%s", page + 1, extension), 300);
-            Image toFx = SwingFXUtils.toFXImage(bim, null);
+            WritableImage toFx = SwingFXUtils.toFXImage(bim, null);
             converted.add(toFx);
         }
         document.close();
+        System.gc();
 
         return converted;
 
